@@ -1,0 +1,11 @@
+<mat-form-field class="w-100" appearance="outline">
+  <mat-label>Title</mat-label>
+  <input matInput [(ngModel)]="title">
+</mat-form-field>
+<mat-form-field class="w-100" *ngIf="data.type === 'post'" appearance="outline">
+  <mat-label>Body</mat-label>
+  <textarea matInput [(ngModel)]="body"></textarea>
+</mat-form-field>
+
+<button mat-raised-button *ngIf="data.type === 'post'" [disabled]="!title || !body || load" (click)="addPost()"   color="primary">Submit</button>
+<button mat-raised-button *ngIf="data.type === 'todo'" [disabled]="!title || load" (click)="addTodo()"   color="primary">Submit</button>

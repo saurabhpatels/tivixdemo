@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Tivix Demo / Todos and Posts</span>
+    <span class="example-spacer"></span>
+    {{currentUser?.name}}
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngFor="let user of getRemainingUser()" (click)="selectUser(user)" mat-menu-item>{{user.name}}</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="container-fluid py-3">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <h1 class="text-center">Posts</h1>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button (click)="openDialog('post')" color="primary">
+          <mat-icon color="accent">add</mat-icon>
+          Add New Post
+        </button>
+        <button color="primary" class="mx-2" mat-raised-button [matMenuTriggerFor]="sortMenu">Sort By</button>
+        <mat-menu #sortMenu="matMenu">
+          <button mat-menu-item (click)="sortPost('small_title')">Small Title First</button>
+          <button mat-menu-item (click)="sortPost('large_title')">Large Title First</button>
+          <button mat-menu-item (click)="sortPost('small_body')">Small Body First</button>
+          <button mat-menu-item (click)="sortPost('large_body')">Large Body First</button>
+        </mat-menu>
+      </div>
+      <div class="d-flex flex-wrap">
+        <mat-card class="example-card m-2" *ngFor="let post of posts">
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-content>
+            <p>{{post.body}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <h1 class="text-center">Todo</h1>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button (click)="openDialog('todo')" color="primary">
+          <mat-icon color="accent">add</mat-icon>
+          Add Todo
+        </button>
+        <button color="primary" class="mx-2" mat-raised-button [matMenuTriggerFor]="sortMenuTodo">Sort By</button>
+        <mat-menu #sortMenuTodo="matMenu">
+          <button mat-menu-item (click)="sortTodo('small_title')">Small Title First</button>
+          <button mat-menu-item (click)="sortTodo('large_title')">Large Title First</button>
+        </mat-menu>
+      </div>
+      <div class="d-flex flex-column">
+        <mat-checkbox class="my-2" *ngFor="let todo of todos" [checked]="todo.completed" color="accent">
+          {{todo.title}}
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+</div>
